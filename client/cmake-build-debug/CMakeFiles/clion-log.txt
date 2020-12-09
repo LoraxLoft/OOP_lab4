@@ -1,0 +1,10 @@
+"C:\Program Files\JetBrains\CLion 2020.2.3\bin\cmake\win\bin\cmake.exe" -DCMAKE_BUILD_TYPE=Debug -G "CodeBlocks - MinGW Makefiles" C:\Users\Acer\Documents\GitHub\OOP_lab4\OOP_lab4\client
+-- Found SFML 2.5.1 in C:/mingw64/lib/cmake/SFML
+-- Looking for pthread.h
+-- Looking for pthread.h - found
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+-- Found Threads: TRUE  
+-- Configuring done
+-- Generating done
+-- Build files have been written to: C:/Users/Acer/Documents/GitHub/OOP_lab4/OOP_lab4/client/cmake-build-debug
