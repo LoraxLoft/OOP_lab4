@@ -1,184 +1,8 @@
-#include <SFML/Graphics.hpp>
-#include <SFML/Window.hpp>
-#include <SFML/Network.hpp>
-#include <vector>
-#include <cmath>
-#include <cstring>
+#include "Game.h"
 #include <ostream>
 #include <iostream>
-#include <fstream>
 
-using namespace sf;
-
-class Field{
-public:
-    std::vector<RectangleShape> field;
-    std::vector<int> nums;
-    Color color = Color::Magenta;
-    Color color2 = Color::Black;
-    float size = 100;
-    float thickness = 4;
-    std::vector<int> last_added;
-
-    Field(){
-        for(int i=0; i<=2; i++){
-            for(int j=0; j<=2; j++){
-                RectangleShape rect = RectangleShape(Vector2f(size, size));
-                rect.move(size/2 + size*j, size/2 + size*i);
-                rect.setFillColor(color);
-                rect.setOutlineThickness(thickness);
-                rect.setOutlineColor(color2);
-                field.push_back(rect);
-                nums.push_back(0);
-            }
-        }
-        last_added.push_back(0);
-        last_added.push_back(0);
-    }
-};
-
-class Game{
-public:
-    std::vector<std::string> states = {"Main_Menu", "Settings", "Round", "View_Res"};
-    Field field;
-    std::string current_state;
-    std::string playing_for = "X";
-    std::string playing_against = "O";
-    float size = 100;
-    Color play_but_col = Color::Green;
-    Color play_but_out_col = Color::Black;
-    float thickness = 4;
-    RectangleShape play_button;
-    bool on=false, sets=false;
-    bool my_turn = true;
-    bool res = 0;
-
-
-    Game(){
-        current_state = "Main_Menu";
-    }
-
-    void main_menu(){
-        play_button = RectangleShape(Vector2f(size*2, size));
-        play_button.move(size, size/2);
-        play_button.setFillColor(play_but_col);
-        play_button.setOutlineColor(play_but_out_col);
-        play_button.setOutlineThickness(thickness);
-        Field field2;
-        field = field2;
-    }
-
-    int main_menu_check(float x, float y){
-        if (play_button.getGlobalBounds().contains(x, y)) return 1;
-        return 0;
-    }
-
-
-    void add_num(std::string s, int i, int j){
-        field.last_added[0] = i;
-        field.last_added[1] = j;
-        if (s == playing_for){
-            field.nums[i*3 + j] = 2;
-        } else if (s == playing_against){
-            field.nums[i*3 + j] = 1;
-        } else {
-            throw "panic";
-        }
-    }
-
-    bool round_check(float x, float y){
-        for(int i=0; i<=2; i++){
-            for(int j=0; j<=2; j++){
-                if (field.field[i*3 + j].getGlobalBounds().contains(x, y)){
-                    add_num(playing_for, i, j);
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-
-    bool win_check(){
-        for(int i = 0; i <= 2; i++){
-            bool win = true;
-            for(int j = 0; j <=2; j++){
-                if (field.nums[i*3 + j] != 2){
-                    win = false;
-                    break;
-                }
-            }
-            if (win){return true;}
-        }
-        for(int i = 0; i <= 2; i++){
-            bool win = true;
-            for(int j = 0; j <=2; j++){
-                if (field.nums[i + j*3] != 2){
-                    win = false;
-                    break;
-                }
-            }
-            if (win){return true;}
-        }
-        if(field.nums[0] == 2 && field.nums[4] == 2 && field.nums[8] == 2){return true;}
-        if(field.nums[2] == 2 && field.nums[4] == 2 && field.nums[6] == 2){return true;}
-        return false;
-    }
-
-    void draw_main_menu(RenderWindow& win){
-        win.draw(play_button);
-
-        Text text; Font font;
-        if (!font.loadFromFile("C:/WINDOWS/FONTS/CENTAUR.TTF")){
-            throw "panic.";
-        }
-        text.setFont(font);
-        text.setString("Play"); text.setCharacterSize(36);
-        text.setFillColor(play_but_out_col); text.move(size * 1.8, size * 0.8);
-        win.draw(text);
-    }
-
-    void draw_round(RenderWindow& win){
-        for(RectangleShape rect: field.field){
-            win.draw(rect);
-        }
-        Font font;
-        if (!font.loadFromFile("C:/WINDOWS/FONTS/CENTAUR.TTF")){
-            throw "panic.";
-        }
-
-        for(int i=0; i<=2; i++){
-            for(int j=0; j<=2; j++){
-                if (field.nums[i*3 + j] == 2){
-                    Text text; text.setFont(font); text.setString(playing_for); text.setCharacterSize(36);
-                    text.setFillColor(play_but_out_col); text.move(size/2*1.7 + size*j, size/2*1.5 + size*i);
-                    win.draw(text);
-                } else if (field.nums[i*3 + j] == 1){
-                    Text text; text.setFont(font); text.setString(playing_against); text.setCharacterSize(36);
-                    text.setFillColor(play_but_out_col); text.move(size/2*1.7 + size*j, size/2*1.5 + size*i);
-                    win.draw(text);
-                }
-            }
-        }
-    }
-
-    void draw_result(RenderWindow& win){
-        Text text;
-        Font font;
-        if (!font.loadFromFile("C:/WINDOWS/FONTS/CENTAUR.TTF")){
-            throw "panic.";
-        }
-        text.setFont(font); text.setCharacterSize(60);
-        text.setFillColor(play_but_out_col); text.move(size, size*1.1);
-        if(res){
-            text.setString("You won!");
-        } else {
-
-            text.setString("You lost.");
-        }
-        win.draw(text);
-    }
-};
-
+float size = 100;
 
 int main()
 {
@@ -197,18 +21,18 @@ int main()
 
 //////////////////////////////
 
-    sf::RenderWindow window(sf::VideoMode(400, 400), "Cross&Null_c", 7, settings);
-    Game game;
+    RenderWindow window(VideoMode(int(size)*4, int(size)*4), "Cross&Null_c", 7, settings);
+    Game game(100);
     game.main_menu();
 
     while (window.isOpen())
     {
-        sf::Event event;
+        Event event;
         while (window.pollEvent(event))
         {
-            if (event.type == sf::Event::Closed)
+            if (event.type == Event::Closed)
                 window.close();
-            else if(event.type == sf::Event::MouseButtonPressed) {
+            else if(event.type == Event::MouseButtonPressed) {
                 Packet data;
                 data << game.current_state;
                 if (game.current_state == "Main_Menu"){
@@ -239,21 +63,22 @@ int main()
                 } else if (game.current_state == "View_Res"){
                     data<<true;
                     game.current_state = "Main_Menu";
+                    game.main_menu();
                 }
                 status = socket.send(data);
-                if (status != sf::Socket::Done) {
+                if (status != Socket::Done) {
                 }
             }
         }
 
-        sf::SocketSelector selector;
+        SocketSelector selector;
         selector.add(socket);
 
-        if(selector.wait(sf::milliseconds(250)))
+        if(selector.wait(milliseconds(250)))
         {
-            sf::Packet receivedData;
+            Packet receivedData;
             status = socket.receive(receivedData);
-            if (status != sf::Socket::Done && status != sf::Socket::Disconnected) {
+            if (status != Socket::Done && status != Socket::Disconnected) {
                 throw "AAAAA!";
             }
             receivedData >> game.current_state;
@@ -282,10 +107,11 @@ int main()
                 }
             } else if (game.current_state == "View_Res"){
                 game.current_state = "Main_Menu";
+                game.main_menu();
             }
         }
 
-        window.clear(Color::Cyan);
+        window.clear(Color(130,207, 255));
         if (game.current_state=="Main_Menu"){
             game.draw_main_menu(window);
         } else if (game.current_state == "Round"){

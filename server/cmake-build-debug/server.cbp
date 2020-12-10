@@ -82,6 +82,15 @@
 				</MakeCommands>
 			</Target>
 		</Build>
+		<Unit filename="C:/Users/Acer/Documents/GitHub/OOP_lab4/OOP_lab4/server/Field.h">
+			<Option target="server"/>
+		</Unit>
+		<Unit filename="C:/Users/Acer/Documents/GitHub/OOP_lab4/OOP_lab4/server/Game.h">
+			<Option target="server"/>
+		</Unit>
+		<Unit filename="C:/Users/Acer/Documents/GitHub/OOP_lab4/OOP_lab4/server/Settings.h">
+			<Option target="server"/>
+		</Unit>
 		<Unit filename="C:/Users/Acer/Documents/GitHub/OOP_lab4/OOP_lab4/server/main.cpp">
 			<Option target="server"/>
 		</Unit>

@@ -6,24 +6,36 @@
 
 #IncludeRegexTransform: 
 
-C:/Users/Acer/Documents/GitHub/OOP_lab4/OOP_lab4/client/main.cpp
+C:/Users/Acer/Documents/GitHub/OOP_lab4/OOP_lab4/client/Field.h
+vector
+-
 SFML/Graphics.hpp
 -
 SFML/Window.hpp
 -
 SFML/Network.hpp
 -
-vector
+
+C:/Users/Acer/Documents/GitHub/OOP_lab4/OOP_lab4/client/Game.h
+Field.h
+C:/Users/Acer/Documents/GitHub/OOP_lab4/OOP_lab4/client/Field.h
+Settings.h
+C:/Users/Acer/Documents/GitHub/OOP_lab4/OOP_lab4/client/Settings.h
+
+C:/Users/Acer/Documents/GitHub/OOP_lab4/OOP_lab4/client/Settings.h
+SFML/Graphics.hpp
 -
-cmath
+SFML/Window.hpp
 -
-cstring
+SFML/Network.hpp
 -
+
+C:/Users/Acer/Documents/GitHub/OOP_lab4/OOP_lab4/client/main.cpp
+Game.h
+C:/Users/Acer/Documents/GitHub/OOP_lab4/OOP_lab4/client/Game.h
 ostream
 -
 iostream
--
-fstream
 -
 
 C:/mingw64/include/SFML/Config.hpp
